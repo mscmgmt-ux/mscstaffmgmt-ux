@@ -37,6 +37,7 @@ GitHub Pages に公開された URL からアクセスしてください。<br>
   <label for="staffUrl">スタッフ用 Web App URL</label>
   <input type="text" id="staffUrl" placeholder="https://script.google.com/macros/s/.../exec">
   <button onclick="testGet('staffUrl','staffOut')">① GET 疎通</button>
+  <button onclick="testGet('staffUrl','staffOut',true)">④ GET 疎通（Cookie 付き）</button>
   <button onclick="testPost('staffUrl','staffOut')">② POST 疎通（text/plain）</button>
   <pre id="staffOut">（未実行）</pre>
 </section>
@@ -45,6 +46,7 @@ GitHub Pages に公開された URL からアクセスしてください。<br>
   <label for="adminUrl">管理者用 Web App URL</label>
   <input type="text" id="adminUrl" placeholder="https://script.google.com/macros/s/.../exec">
   <button onclick="testGet('adminUrl','adminOut')">① GET 疎通</button>
+  <button onclick="testGet('adminUrl','adminOut',true)">④ GET 疎通（Cookie 付き）</button>
   <button onclick="testWhoami('adminUrl','adminOut')">③ ログインメール確認</button>
   <pre id="adminOut">（未実行）</pre>
 </section>
@@ -62,15 +64,18 @@ function show(outId, label, ok, detail) {
   el.innerHTML = '<span class="' + cls + '">[' + label + '] ' + (ok ? '成功' : '失敗') + '</span>\n' + detail;
 }
 
-async function testGet(urlId, outId) {
+async function testGet(urlId, outId, creds) {
   var url = document.getElementById(urlId).value.trim();
   if (!url) { alert('URL を入力してください'); return; }
+  var label = creds ? 'GET+Cookie' : 'GET';
+  var opt = { method: 'GET' };
+  if (creds) opt.credentials = 'include';
   try {
-    var res = await fetch(url, { method: 'GET' });
+    var res = await fetch(url, opt);
     var text = await res.text();
-    show(outId, 'GET', res.ok, 'status: ' + res.status + '\n' + text);
+    show(outId, label, res.ok, 'status: ' + res.status + '\nredirected: ' + res.redirected + '\nfinalURL: ' + res.url + '\n' + text);
   } catch (err) {
-    show(outId, 'GET', false, String(err));
+    show(outId, label, false, String(err));
   }
 }
 
