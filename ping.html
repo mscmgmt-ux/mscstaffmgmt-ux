@@ -1,0 +1,108 @@
+<!doctype html>
+<!--
+  Phase 0 疎通確認専用ページ。
+  本番フロントではない。G-1（CORS）・G-2（Session.getActiveUser）の
+  検証が終わったら削除する。
+
+  ★ ダブルクリックで開いても正しく検証できない（file:// は origin が
+  "null" 扱いになり、実際のクロスオリジン挙動と異なる）。
+  必ず GitHub Pages 経由（https://mscmgmt-ux.github.io/mscstaffmgmt-ux/ping.html）
+  でアクセスすること。
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Phase 0 疎通確認</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 24px auto; padding: 0 16px; line-height: 1.6; }
+  h1 { font-size: 1.25rem; }
+  section { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 0.875rem; }
+  input[type=text] { width: 100%; padding: 8px; box-sizing: border-box; font-size: 0.875rem; margin-bottom: 8px; }
+  button { padding: 8px 16px; margin-right: 8px; margin-bottom: 8px; cursor: pointer; }
+  pre { background: #f5f5f5; padding: 8px; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+  .ok { color: #0a0; } .ng { color: #c00; }
+</style>
+</head>
+<body>
+
+<h1>Phase 0 疎通確認（このページは検証専用。本番画面ではない）</h1>
+<p>このページを <code>file://</code> で開いても正しく検証できません。<br>
+GitHub Pages に公開された URL からアクセスしてください。<br>
+現在のオリジン: <code id="origin"></code></p>
+
+<section>
+  <label for="staffUrl">スタッフ用 Web App URL</label>
+  <input type="text" id="staffUrl" placeholder="https://script.google.com/macros/s/.../exec">
+  <button onclick="testGet('staffUrl','staffOut')">① GET 疎通</button>
+  <button onclick="testPost('staffUrl','staffOut')">② POST 疎通（text/plain）</button>
+  <pre id="staffOut">（未実行）</pre>
+</section>
+
+<section>
+  <label for="adminUrl">管理者用 Web App URL</label>
+  <input type="text" id="adminUrl" placeholder="https://script.google.com/macros/s/.../exec">
+  <button onclick="testGet('adminUrl','adminOut')">① GET 疎通</button>
+  <button onclick="testWhoami('adminUrl','adminOut')">③ ログインメール確認</button>
+  <pre id="adminOut">（未実行）</pre>
+</section>
+
+<p>結果はこのページの表示のまま、私（Claude）に貼り付けてください。<br>
+「② POST 疎通」が失敗する場合はブラウザの開発者ツール → Network タブで
+プリフライト（OPTIONS）が発生していないかも確認してください。</p>
+
+<script>
+document.getElementById('origin').textContent = location.origin || '(null origin - file://で開いています)';
+
+function show(outId, label, ok, detail) {
+  var el = document.getElementById(outId);
+  var cls = ok ? 'ok' : 'ng';
+  el.innerHTML = '<span class="' + cls + '">[' + label + '] ' + (ok ? '成功' : '失敗') + '</span>\n' + detail;
+}
+
+async function testGet(urlId, outId) {
+  var url = document.getElementById(urlId).value.trim();
+  if (!url) { alert('URL を入力してください'); return; }
+  try {
+    var res = await fetch(url, { method: 'GET' });
+    var text = await res.text();
+    show(outId, 'GET', res.ok, 'status: ' + res.status + '\n' + text);
+  } catch (err) {
+    show(outId, 'GET', false, String(err));
+  }
+}
+
+async function testPost(urlId, outId) {
+  var url = document.getElementById(urlId).value.trim();
+  if (!url) { alert('URL を入力してください'); return; }
+  try {
+    // Content-Type: text/plain + カスタムヘッダなし でプリフライトを避ける想定。
+    var res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ hello: 'from ping.html', ts: Date.now() })
+    });
+    var text = await res.text();
+    show(outId, 'POST', res.ok, 'status: ' + res.status + '\n' + text);
+  } catch (err) {
+    show(outId, 'POST', false, String(err));
+  }
+}
+
+async function testWhoami(urlId, outId) {
+  var url = document.getElementById(urlId).value.trim();
+  if (!url) { alert('URL を入力してください'); return; }
+  var sep = url.indexOf('?') >= 0 ? '&' : '?';
+  try {
+    var res = await fetch(url + sep + 'whoami=1', { method: 'GET' });
+    var text = await res.text();
+    show(outId, 'whoami', res.ok, 'status: ' + res.status + '\n' + text);
+  } catch (err) {
+    show(outId, 'whoami', false, String(err));
+  }
+}
+</script>
+</body>
+</html>
