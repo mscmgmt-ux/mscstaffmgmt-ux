@@ -1,0 +1,129 @@
+<!doctype html>
+<!-- design-2 / ホーム（イベント一覧）
+     参考画像2枚目に対応。仕様書の「年間イベント登録」に合わせ、
+     複数イベントを並べる構成にした。
+     ※ 氏名・イベント名・会場はすべて架空のダミー。API 呼び出しなし。 -->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ホーム｜MSC EventOps</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へスキップ</a>
+
+<div class="wrap">
+
+  <header class="appbar">
+    <button class="ib" type="button" aria-label="メニュー">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <h1>MSC<span style="color:var(--red-ink)">EventOps</span></h1>
+    <button class="ib" type="button" aria-label="お知らせ 2件">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8M13.7 21a2 2 0 0 1-3.4 0"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="dot">2</span>
+    </button>
+  </header>
+
+  <main id="main">
+
+    <p class="greet">おはようございます、山田さん 👋</p>
+    <p class="sub">回答期限が近いイベントが1件あります。</p>
+
+    <div class="note" style="margin-top:var(--s2)">
+      <b aria-hidden="true">○</b>
+      <span><b>デザイン検討用のプロトタイプです。</b> 表示中の内容はすべて架空のダミーです。</span>
+    </div>
+
+    <div class="secthead">
+      <h2>回答が必要なイベント</h2>
+      <a href="#">すべて見る ›</a>
+    </div>
+
+    <!-- 参考画像の「注目カード」。赤枠 + グローで最優先の1件だけを立てる。 -->
+    <section class="card card--hi">
+      <div class="evt">
+        <div><span class="chip chip--warn">未回答 ／ 残り3日</span></div>
+        <p class="title">2026年度<br>春季ラウンド</p>
+        <div class="meta">
+          <span><i aria-hidden="true">📍</i>富士スピードウェイ</span>
+          <span><i aria-hidden="true">📅</i>2026.04.11（土）– 04.13（月）</span>
+          <span><i aria-hidden="true">👥</i>対象スタッフ 42名</span>
+        </div>
+        <div class="actions" style="margin-top:var(--s1)">
+          <a class="btn btn--outline" href="answer.html">シフトを提出</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="secthead">
+      <h2>その他のイベント</h2>
+    </div>
+
+    <ul class="list">
+      <li>
+        <a class="row" href="list.html">
+          <span class="thumb" aria-hidden="true">確定</span>
+          <span class="body">
+            <b>2026年度 開幕ラウンド</b>
+            <span>鈴鹿サーキット ／ 2026.03.14 – 03.15</span>
+            <span class="chip chip--ok">参加確定</span>
+          </span>
+          <span class="chev" aria-hidden="true">›</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="answer.html">
+          <span class="thumb thumb--off" aria-hidden="true">7月</span>
+          <span class="body">
+            <b>2026年度 夏季ラウンド</b>
+            <span>ツインリンク もてぎ ／ 2026.07.18 – 07.20</span>
+            <span class="chip chip--off">受付前</span>
+          </span>
+          <span class="chev" aria-hidden="true">›</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="list.html">
+          <span class="thumb thumb--off" aria-hidden="true">見送</span>
+          <span class="body">
+            <b>2025年度 最終ラウンド</b>
+            <span>岡山国際サーキット ／ 2025.11.22 – 11.23</span>
+            <span class="chip chip--off">見送り</span>
+          </span>
+          <span class="chev" aria-hidden="true">›</span>
+        </a>
+      </li>
+    </ul>
+
+  </main>
+</div>
+
+<nav class="tabbar" aria-label="メインナビゲーション">
+  <a href="home.html" aria-current="page">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    ホーム
+  </a>
+  <a href="answer.html">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    シフト提出
+  </a>
+  <a href="list.html">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    確定リスト
+  </a>
+  <a href="admin.html">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    事務局
+  </a>
+</nav>
+</body>
+</html>

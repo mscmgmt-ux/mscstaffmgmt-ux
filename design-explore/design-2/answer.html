@@ -1,0 +1,311 @@
+<!doctype html>
+<!-- design-2 / シフト提出（参考画像3枚目に対応）
+     参考画像の日程選択は「参加する / しない」の2値だが、仕様書は
+     参加可能 / 要請があれば参加可能 / 参加不可 の3状態を要求している。
+     そのため日ごとの列に3つの選択肢を積み、その下に宿泊を置いた。
+     ※ 氏名・イベント名はすべて架空のダミー。API 呼び出しなし。 -->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>シフト提出｜MSC EventOps</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へスキップ</a>
+
+<div class="wrap">
+
+  <header class="appbar">
+    <a class="ib" href="home.html" aria-label="ホームへ戻る">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <h1>シフト提出</h1>
+    <span class="ib" aria-hidden="true"></span>
+  </header>
+
+  <main id="main">
+
+    <ol class="steps" id="steps">
+      <li data-s="done"><span class="ic">✓</span><span class="tx">イベント</span></li>
+      <li data-s="now"><span class="ic">📅</span><span class="tx">日程選択</span></li>
+      <li><span class="ic">☑</span><span class="tx">確認</span></li>
+      <li><span class="ic">🏁</span><span class="tx">完了</span></li>
+    </ol>
+
+    <section class="card">
+      <div class="evt">
+        <p class="title" style="font-size:var(--fs-h2)">2026年度 春季ラウンド</p>
+        <div class="meta">
+          <span><i aria-hidden="true">📍</i>富士スピードウェイ</span>
+          <span><i aria-hidden="true">📅</i>2026.04.11（土）– 04.13（月）</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEP 2: 日程選択 ===== -->
+    <div data-step="2">
+
+      <section class="card">
+        <h2 style="margin:0 0 var(--s0);font-size:var(--fs-body)">1. 参加できる日程を選んでください</h2>
+        <p class="sub" style="margin-bottom:var(--s2)">日ごとに3つのうち1つをお選びください。</p>
+
+        <div class="gridwrap">
+          <div class="grid" id="grid" tabindex="0" role="group" aria-label="開催日ごとの参加可否。横にスクロールします">
+
+            <div class="day">
+              <div class="dh"><span class="w sat">土</span><span class="d">4/11</span></div>
+              <fieldset style="margin:0;display:grid;gap:6px">
+                <legend class="vh">4月11日（土）の参加可否</legend>
+                <label class="opt"><input type="radio" name="d1" checked><span>参加可能</span></label>
+                <label class="opt"><input type="radio" name="d1"><span>要請があれば</span></label>
+                <label class="opt opt--no"><input type="radio" name="d1"><span>参加不可</span></label>
+              </fieldset>
+              <label class="opt stay"><input type="checkbox" name="s1" checked><span>宿泊</span></label>
+            </div>
+
+            <div class="day">
+              <div class="dh"><span class="w sun">日</span><span class="d">4/12</span></div>
+              <fieldset style="margin:0;display:grid;gap:6px">
+                <legend class="vh">4月12日（日）の参加可否</legend>
+                <label class="opt"><input type="radio" name="d2"><span>参加可能</span></label>
+                <label class="opt"><input type="radio" name="d2" checked><span>要請があれば</span></label>
+                <label class="opt opt--no"><input type="radio" name="d2"><span>参加不可</span></label>
+              </fieldset>
+              <label class="opt stay"><input type="checkbox" name="s2" checked><span>宿泊</span></label>
+            </div>
+
+            <div class="day">
+              <div class="dh"><span class="w">月</span><span class="d">4/13</span></div>
+              <fieldset style="margin:0;display:grid;gap:6px">
+                <legend class="vh">4月13日（月）の参加可否</legend>
+                <label class="opt"><input type="radio" name="d3"><span>参加可能</span></label>
+                <label class="opt"><input type="radio" name="d3"><span>要請があれば</span></label>
+                <label class="opt opt--no"><input type="radio" name="d3" checked><span>参加不可</span></label>
+              </fieldset>
+              <label class="opt stay"><input type="checkbox" name="s3" disabled><span>宿泊</span></label>
+            </div>
+
+            <div class="day">
+              <div class="dh"><span class="w">火</span><span class="d">4/14</span></div>
+              <fieldset style="margin:0;display:grid;gap:6px">
+                <legend class="vh">4月14日（火）の参加可否</legend>
+                <label class="opt"><input type="radio" name="d4"><span>参加可能</span></label>
+                <label class="opt"><input type="radio" name="d4"><span>要請があれば</span></label>
+                <label class="opt opt--no"><input type="radio" name="d4"><span>参加不可</span></label>
+              </fieldset>
+              <label class="opt stay"><input type="checkbox" name="s4"><span>宿泊</span></label>
+            </div>
+
+            <div class="day">
+              <div class="dh"><span class="w">水</span><span class="d">4/15</span></div>
+              <fieldset style="margin:0;display:grid;gap:6px">
+                <legend class="vh">4月15日（水）の参加可否</legend>
+                <label class="opt"><input type="radio" name="d5"><span>参加可能</span></label>
+                <label class="opt"><input type="radio" name="d5"><span>要請があれば</span></label>
+                <label class="opt opt--no"><input type="radio" name="d5"><span>参加不可</span></label>
+              </fieldset>
+              <label class="opt stay"><input type="checkbox" name="s5" disabled><span>宿泊</span></label>
+            </div>
+
+          </div>
+        </div>
+
+        <p class="count" id="count" aria-live="polite">
+          <span id="count-tx">回答済み 0/5日</span>
+          <span class="bar" aria-hidden="true"><i id="count-bar" style="width:0%"></i></span>
+        </p>
+
+        <p class="hint">※ 横にスクロールすると残りの日が表示されます。最終日に宿泊の設定はありません。参加不可の日は宿泊も選べません。</p>
+      </section>
+
+      <section class="card">
+        <h2 style="margin:0 0 var(--s0);font-size:var(--fs-body)">2. 宿泊の希望</h2>
+        <p class="sub" style="margin-bottom:var(--s2)">宿泊する日がある場合のみお答えください。</p>
+
+        <fieldset>
+          <legend class="legend">喫煙区分</legend>
+          <div class="rowopts">
+            <label class="opt"><input type="radio" name="smoke"><span>喫煙</span></label>
+            <label class="opt"><input type="radio" name="smoke" checked><span>禁煙</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset style="margin-bottom:0">
+          <legend class="legend">希望部屋タイプ</legend>
+          <div class="rowopts">
+            <label class="opt"><input type="radio" name="room" checked><span>シングル</span></label>
+            <label class="opt"><input type="radio" name="room"><span>ツイン</span></label>
+            <label class="opt"><input type="radio" name="room"><span>指定なし</span></label>
+          </div>
+        </fieldset>
+      </section>
+
+      <div class="actions">
+        <a class="btn btn--quiet" href="home.html">戻る</a>
+        <button class="btn btn--outline" type="button" data-go="3">次へ</button>
+      </div>
+    </div>
+
+    <!-- ===== STEP 3: 確認 ===== -->
+    <div data-step="3" class="hidden">
+      <section class="card">
+        <h2 style="margin:0 0 var(--s2);font-size:var(--fs-body)">この内容で提出します</h2>
+        <ul class="list">
+          <li><div class="row" style="cursor:default">
+            <span class="thumb" aria-hidden="true">4/11</span>
+            <span class="body"><b>参加可能</b><span>宿泊する（禁煙・シングル）</span></span>
+            <span class="chip chip--red">参加</span>
+          </div></li>
+          <li><div class="row" style="cursor:default">
+            <span class="thumb" aria-hidden="true">4/12</span>
+            <span class="body"><b>要請があれば参加可能</b><span>宿泊する（禁煙・シングル）</span></span>
+            <span class="chip chip--red">参加</span>
+          </div></li>
+          <li><div class="row" style="cursor:default">
+            <span class="thumb thumb--off" aria-hidden="true">4/13</span>
+            <span class="body"><b>参加不可</b><span>宿泊なし</span></span>
+            <span class="chip chip--off">不参加</span>
+          </div></li>
+        </ul>
+      </section>
+
+      <div class="note note--red">
+        <b aria-hidden="true">●</b>
+        <span><b>提出後はご自身で変更できません。</b>
+        変更が必要になった場合は事務局までご連絡ください。</span>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn--quiet" type="button" data-go="2">修正する</button>
+        <button class="btn btn--fill" type="button" data-go="4">提出する</button>
+      </div>
+    </div>
+
+    <!-- ===== STEP 4: 完了 ===== -->
+    <div data-step="4" class="hidden">
+      <section class="card card--hi" style="text-align:center">
+        <p style="font-size:2.5rem;margin:0" aria-hidden="true">🏁</p>
+        <h2 style="margin:var(--s1) 0 var(--s0);font-size:var(--fs-h1)">提出が完了しました</h2>
+        <p class="sub">事務局で参加者を決定しだい、確定リストに掲載されます。</p>
+        <div class="actions">
+          <a class="btn btn--outline" href="list.html">確定リストを見る</a>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</div>
+
+<nav class="tabbar" aria-label="メインナビゲーション">
+  <a href="home.html">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    ホーム
+  </a>
+  <a href="answer.html" aria-current="page">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    シフト提出
+  </a>
+  <a href="list.html">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    確定リスト
+  </a>
+  <a href="admin.html">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    事務局
+  </a>
+</nav>
+
+<!-- 外部 .js は file:// では実行されないためインラインで書く（design-1 で確認済み）。
+     API 呼び出しは一切しない。 -->
+<script>
+(function () {
+  'use strict';
+  var panels = [].slice.call(document.querySelectorAll('[data-step]'));
+  var items = [].slice.call(document.getElementById('steps').children);
+
+  function show(n) {
+    panels.forEach(function (p) { p.classList.toggle('hidden', Number(p.dataset.step) !== n); });
+    items.forEach(function (li, i) {
+      var s = i + 1;
+      if (s < n) li.dataset.s = 'done';
+      else if (s === n) li.dataset.s = 'now';
+      else delete li.dataset.s;
+    });
+    var h = document.querySelector('[data-step="' + n + '"] h2');
+    if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]');
+    if (!b) return;
+    // 未回答が残っているうちは先へ進ませない（下の refresh が印を付ける）。
+    if (b.getAttribute('aria-disabled') === 'true') { warn(b); return; }
+    show(Number(b.dataset.go));
+  });
+
+  // --- 日ごとの連動と、未回答チェック -------------------------------------
+  // ★ 横スクロールで隠れた日を見落としたまま提出されると、仕様上スタッフは
+  //    自分で修正できない。未回答が1日でもあれば「次へ」を押させない。
+  var days = [].slice.call(document.querySelectorAll('.day'));
+  var grid = document.getElementById('grid');
+  var next = document.querySelector('[data-go="3"]');
+  var ctx = document.getElementById('count-tx');
+  var cbar = document.getElementById('count-bar');
+  var cwrap = document.getElementById('count');
+
+  function refresh() {
+    var done = 0;
+    days.forEach(function (day, i) {
+      var radios = [].slice.call(day.querySelectorAll('input[type="radio"]'));
+      var stay = day.querySelector('input[type="checkbox"]');
+      var answered = radios.some(function (r) { return r.checked; });
+      day.dataset.answered = answered ? 'yes' : 'no';
+      if (answered) done++;
+
+      // 参加不可（3つ目）を選んだ日は宿泊を選べない。最終日は元から無効。
+      if (stay && !stay.dataset.locked) {
+        if (i === days.length - 1) { stay.disabled = true; stay.dataset.locked = '1'; }
+        else if (radios[2] && radios[2].checked) { stay.disabled = true; stay.checked = false; }
+        else { stay.disabled = false; }
+      }
+    });
+
+    var all = done === days.length;
+    ctx.textContent = all
+      ? 'すべての日に回答しました（' + done + '/' + days.length + '日）'
+      : '回答済み ' + done + '/' + days.length + '日　未回答が' + (days.length - done) + '日あります';
+    cbar.style.width = (done / days.length * 100) + '%';
+    cwrap.dataset.done = all ? 'all' : 'partial';
+    // disabled にすると click が発火せず、下の案内が出せない。
+    // 見た目は無効化しつつ、押せる状態は保つ。
+    if (next) {
+      next.setAttribute('aria-disabled', all ? 'false' : 'true');
+      next.classList.toggle('is-off', !all);
+    }
+  }
+
+  // 押せないボタンを押されたら、最初の未回答日まで横スクロールして知らせる。
+  function warn(btn) {
+    var first = document.querySelector('.day[data-answered="no"]');
+    if (!first) return;
+    if (grid) grid.scrollTo({ left: first.offsetLeft - grid.offsetLeft, behavior: 'smooth' });
+    var r = first.querySelector('input[type="radio"]');
+    if (r) r.focus({ preventScroll: true });
+    cwrap.setAttribute('role', 'alert');
+  }
+
+  document.addEventListener('change', function (e) {
+    if (e.target.closest('.day')) refresh();
+  });
+
+  refresh();
+})();
+</script>
+</body>
+</html>

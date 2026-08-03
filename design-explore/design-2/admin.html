@@ -1,0 +1,149 @@
+<!doctype html>
+<!-- design-2 / 事務局管理画面
+     参考画像に対応する画面が無いため、配色と部品だけ引き継ぎ、
+     レイアウトは業務画面として作った（body に .dense、グローは使わない）。
+     ※ 数値・氏名・ホテル名はすべて架空のダミー。API 呼び出しなし。 -->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>事務局管理｜MSC EventOps</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dense">
+<a class="skip" href="#main">本文へスキップ</a>
+
+<div class="wrap wrap--wide">
+
+  <header class="appbar">
+    <a class="ib" href="home.html" aria-label="ホームへ戻る">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <h1>事務局管理</h1>
+    <span class="ib" aria-hidden="true"></span>
+  </header>
+
+  <main id="main">
+
+    <p class="sub" style="margin-bottom:var(--s2)">2026年度 春季ラウンド ／ 富士スピードウェイ</p>
+
+    <div class="note">
+      <b aria-hidden="true">○</b>
+      <span><b>デザイン検討用のプロトタイプです。</b> 数値・氏名・ホテル名はすべて架空のダミーです。</span>
+    </div>
+
+    <section class="card">
+      <h2 style="margin:0 0 var(--s0);font-size:var(--fs-body)">回答状況</h2>
+      <p class="sub" style="margin-bottom:var(--s2)">回答期限 2026年3月28日（金）／ 残り 3日</p>
+      <dl class="tiles">
+        <div class="tile"><dt>対象スタッフ</dt><dd>42<span class="u">名</span></dd></div>
+        <div class="tile"><dt>回答済み</dt><dd>31<span class="u">名</span></dd><p class="n">74%</p></div>
+        <div class="tile"><dt>未回答</dt><dd style="color:var(--warn)">11<span class="u">名</span></dd><p class="n">要督促</p></div>
+        <div class="tile"><dt>事務局修正あり</dt><dd>2<span class="u">件</span></dd></div>
+      </dl>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 var(--s0);font-size:var(--fs-body)">ホテル室数の照合</h2>
+      <p class="sub" style="margin-bottom:var(--s2)">赤の塗りが確保済み。斜線が不足分。</p>
+      <div class="cmp">
+        <div class="r">
+          <span class="nm">富士グランドホテル ／ 4月11日</span>
+          <span class="nu">確保 12 ／ 必要 10</span>
+          <div class="track"><div class="have" style="width:100%"></div></div>
+        </div>
+        <div class="r">
+          <span class="nm">富士グランドホテル ／ 4月12日</span>
+          <span class="nu">確保 12 ／ 必要 14 <b style="color:var(--err)">（2室不足）</b></span>
+          <div class="track">
+            <div class="have" style="width:85.7%"></div>
+            <div class="short" style="left:85.7%;right:0"></div>
+          </div>
+        </div>
+        <div class="r">
+          <span class="nm">御殿場ステイイン ／ 4月12日</span>
+          <span class="nu">確保 6 ／ 必要 6</span>
+          <div class="track"><div class="have" style="width:100%"></div></div>
+        </div>
+      </div>
+      <div class="note" style="margin:var(--s3) 0 0">
+        <b aria-hidden="true">⚠</b>
+        <span><b>4月12日 富士グランドホテルが2室不足しています。</b>
+        追加確保、または宿泊者の割り当て変更が必要です。</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 var(--s0);font-size:var(--fs-body)">ホテルへの送信状況</h2>
+      <p class="sub" style="margin-bottom:var(--s2)">最後に送った名簿がホテル側に伝わっている状態とみなします。</p>
+      <dl class="tiles">
+        <div class="tile"><dt>最終送信</dt><dd style="font-size:1.125rem">第2版</dd><p class="n">3月30日 送信済み</p></div>
+        <div class="tile"><dt>最終送信人数</dt><dd>26<span class="u">名</span></dd></div>
+        <div class="tile"><dt>送信後 追加</dt><dd style="color:var(--ok)">+2<span class="u">名</span></dd></div>
+        <div class="tile"><dt>送信後 取消</dt><dd style="color:var(--err)">−1<span class="u">名</span></dd></div>
+        <div class="tile"><dt>送信後 変更</dt><dd style="color:var(--warn)">3<span class="u">件</span></dd></div>
+        <div class="tile"><dt>人員未定枠</dt><dd>2<span class="u">名</span></dd></div>
+      </dl>
+      <div class="actions">
+        <button class="btn btn--quiet" type="button">差分を確認</button>
+        <button class="btn btn--fill" type="button">第3版を作成</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 var(--s0);font-size:var(--fs-body)">参加者の決定（4月12日）</h2>
+      <p class="sub" style="margin-bottom:var(--s2)">必要人数 14名 ／ 現在の決定 12名</p>
+
+      <div class="tablewrap">
+        <table>
+          <caption>回答一覧。決定前の欄は「未決定」と表示しています。</caption>
+          <thead>
+            <tr>
+              <th scope="col">氏名</th><th scope="col">カテゴリー</th>
+              <th scope="col">督促</th><th scope="col">回答</th>
+              <th scope="col">宿泊</th><th scope="col">部屋</th><th scope="col">事務局決定</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>山田 太郎</td><td>コース</td><td class="num">—</td>
+              <td><span class="chip chip--ok">参加可能</span></td><td>要</td><td>禁煙 / シングル</td>
+              <td><span class="chip chip--ok">参加決定</span></td></tr>
+            <tr><td>佐藤 花子</td><td>PA</td><td class="num">—</td>
+              <td><span class="chip chip--ok">参加可能</span></td><td>要</td><td>禁煙 / ツイン</td>
+              <td><span class="chip chip--ok">参加決定</span></td></tr>
+            <tr><td>鈴木 一郎</td><td>配信</td><td class="num">—</td>
+              <td><span class="chip chip--ok">参加可能</span></td><td>要</td><td>喫煙 / シングル</td>
+              <td><span class="chip chip--off">決定後取消</span></td></tr>
+            <tr><td>小林 七海</td><td>配信</td><td class="num">—</td>
+              <td><span class="chip chip--warn">要請があれば</span></td><td>要</td><td>禁煙 / シングル</td>
+              <td><span class="chip chip--ok">参加決定</span></td></tr>
+            <tr><td>田中 次郎</td><td>ドローン</td><td class="num">—</td>
+              <td><span class="chip chip--warn">要請があれば</span></td><td>不要</td><td>—</td>
+              <td><span class="chip chip--off">未決定</span></td></tr>
+            <tr><td>高橋 三郎</td><td>審査員</td><td class="num">2回</td>
+              <td><span class="chip chip--off">未回答</span></td><td>—</td><td>—</td>
+              <td><span class="chip chip--off">未決定</span></td></tr>
+            <tr><td>伊藤 四郎</td><td>ベンダー</td><td><span class="chip chip--err">送信エラー</span></td>
+              <td><span class="chip chip--off">未回答</span></td><td>—</td><td>—</td>
+              <td><span class="chip chip--off">未決定</span></td></tr>
+            <tr><td>渡辺 五郎</td><td>社員</td><td class="num">—</td>
+              <td><span class="chip chip--err">参加不可</span></td><td>—</td><td>—</td>
+              <td><span class="chip chip--off">見送り</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn--quiet" type="button">未回答者に督促</button>
+        <button class="btn btn--fill" type="button">確定リストを公開</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>
